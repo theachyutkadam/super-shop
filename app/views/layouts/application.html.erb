@@ -16,25 +16,22 @@
       <%= render 'layouts/navbar' %>
 
       <div class="mdk-drawer-layout js-mdk-drawer-layout" fullbleed push has-scrolling-region>
-          <div class="mdk-drawer-layout__content mdk-header-layout__content--scrollable">
-            <!-- CONTENT BODY -->
-            <div class="container-fluid">
-              <%= yield %>
+        <div class="mdk-drawer-layout__content mdk-header-layout__content--scrollable">
+          <!-- CONTENT BODY -->
+          <div class="container-fluid">
+            <%= yield %>
+          </div>
+        </div>
+        <!-- drawer -->
+        <div class="mdk-drawer js-mdk-drawer" id="default-drawer">
+          <div class="mdk-drawer__content">
+            <div class="mdk-drawer__inner">
+              <%= render 'layouts/sidebar' %>
             </div>
           </div>
-
-          <!-- drawer -->
-          <div class="mdk-drawer js-mdk-drawer" id="default-drawer">
-              <div class="mdk-drawer__content">
-                  <div class="mdk-drawer__inner">
-                    <%= render 'layouts/sidebar' %>
-                  </div>
-              </div>
-          </div>
-
+        </div>
       </div>
     </div>
-
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
   </body>
