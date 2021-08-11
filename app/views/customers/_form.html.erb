@@ -1,0 +1,59 @@
+<div class="card card-body">
+  <div class="form-group">
+    <%= form_with(model: customer, local: true) do |form| %>
+    <% if customer.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(customer.errors.count, "error") %> prohibited this customer from being saved:</h2>
+
+        <ul>
+        <% customer.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <label>First Name</label>
+      <%= form.text_field :first_name, id: :customer_first_name, placeholder: "First Name",  class: "form-control"%>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :middle_name %>
+      <%= form.text_field :middle_name, id: :customer_middle_name, placeholder: "Middle Name", class: "form-control"%>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :last_name %>
+      <%= form.text_field :last_name, id: :customer_last_name, placeholder: "Last Name", class: "form-control"%>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :contact %>
+      <%= form.text_field :contact, id: :customer_contact, placeholder: "Contact Number", class: "form-control"%>
+    </div>
+
+    <div class="form-group">
+      <label>Birthdate:- </label>
+      <%= form.date_select :birthdate, id: :customer_birthdate, start_year: Date.today.year - 100, end_year: Date.today.year, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <label>Gender:- </label><br>
+      <%= form.radio_button :gender, "male", id: :customer_gender, class: "form-control"%> Male<br><br>
+      <%= form.radio_button :gender, "female", id: :customer_gender, class: "form-control"%> Female
+    </div>
+
+    <div class="form-group">
+      <label>Address</label>
+      <%= form.text_area :address, id: :customer_address, class: "form-control" %>
+    </div>
+
+    <div class="actions">
+      <%= form.submit class: "btn btn-primary" %>
+      <%= link_to 'Back', customers_path, class: "btn btn-light" %>
+    </div>
+
+    <% end %>
+  </div>
+</div>
