@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<h5>Products
+  <%= link_to "Add Product", new_product_path, class: "float-right btn btn-primary"%>
+</h5>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Measure</th>
+      <th>Rate</th>
+      <th>Code</th>
+      <th>Category</th>
+      <th>Discount</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody class= "table-sm">
+    <% @products.each do |product| %>
+      <tr>
+        <td><%= product.name %></td>
+        <td><%= Product.measures.key(product.measure).capitalize %></td>
+        <td><%= product.rate %></td>
+        <td><%= product.code %></td>
+        <td><%= Product.categories.key(product.category).capitalize %></td>
+        <td><%= product.discount %></td>
+        <td><%= link_to 'Show', product, class: "btn btn-outline-info" %></td>
+        <td><%= link_to 'Edit', edit_product_path(product), class: "btn btn-outline-warning" %></td>
+        <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<style type="text/css">
+  td {
+    vertical-align: middle!important;
+  }
+</style>

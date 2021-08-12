@@ -1,0 +1,53 @@
+<div class="card card-body">
+  <div class="form-group">
+    <%= form_with(model: product, local: true) do |form| %>
+      <% if product.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(product.errors.count, "error") %> prohibited this product from being saved:</h2>
+
+          <ul>
+          <% product.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="form-group">
+        <label>Name</label>
+        <%= form.text_field :name, id: :product_name, class: "form-control", placeholder: "Name" %>
+      </div>
+
+      <div class="form-group">
+        <label>Measure</label>
+        <%= form.select :measure, options_for_select(Product.measures.map {|key, value| [key.titleize, value]}, @product.measure), {}, class: "form-control" %>
+        <%#= form.select :measure, Product.measures.keys.map { |k, v| [k.humanize, v] }, {}, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <label>Rate(in Rs)</label>
+        <%= form.text_field :rate, id: :product_rate, class: "form-control", placeholder: "Rate" %>
+      </div>
+
+      <div class="form-group">
+        <label>Code</label>
+        <%= form.number_field :code, id: :product_code, class: "form-control" , placeholder: "Code" %>
+      </div>
+
+      <div class="form-group">
+        <label>Category</label>
+        <%= form.select :category, options_for_select(Product.categories.map {|key, value| [key.titleize, value]}, @product.category), {}, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <label>Discount</label>
+        <%= form.number_field :discount, id: :product_discount, value: "0", class: "form-control", placeholder: "Discount" %>
+      </div>
+
+      <div class="actions">
+        <%= form.submit class: "btn btn-primary" %>
+        <%= link_to 'Back', products_path, class: "btn btn-light" %>
+      </div>
+    <% end %>
+  </div>
+</div>
