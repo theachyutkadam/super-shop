@@ -1,10 +1,15 @@
 class CustomersController < ApplicationController
-  before_action :set_customer, only: [:show, :edit, :update, :destroy]
+  before_action :set_customer, only: [:show, :edit, :update, :destroy, :soft_delete]
 
   # GET /customers
   # GET /customers.json
   def index
-    @customers = Customer.all
+    puts "------------"
+    puts "------------"
+    puts "------------"
+    puts "------------"
+    puts "------------"
+    @customers = Customer.order(:last_name).paginate(page: params[:page], per_page: 10)
   end
 
   # GET /customers/1
@@ -58,6 +63,16 @@ class CustomersController < ApplicationController
     respond_to do |format|
       format.html { redirect_to customers_url, notice: 'Customer was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def soft_delete
+    if @customer.is_delete == false
+      @customer.update_attribute(:is_delete, true)
+      format.html { redirect_to customers_path, notice: 'Customer was successfully disable.' }
+    else
+      @customer.update_attribute(:is_delete, false)
+      format.html { redirect_to customers_path, notice: 'Customer was successfully enable.' }
     end
   end
 

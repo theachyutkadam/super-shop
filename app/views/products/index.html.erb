@@ -1,5 +1,11 @@
 <p id="notice"><%= notice %></p>
 
+<%= form_tag products_path, :method => 'get' do %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", :name => nil %>
+  </p>
+<% end %>
 <h5>Products
   <%= link_to "Add Product", new_product_path, class: "float-right btn btn-primary"%>
 </h5>
@@ -32,6 +38,8 @@
     <% end %>
   </tbody>
 </table>
+
+<%= will_paginate @products %>
 
 <style type="text/css">
   td {
