@@ -1,0 +1,42 @@
+<%= form_with(model: bill, local: true) do |form| %>
+  <% if bill.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(bill.errors.count, "error") %> prohibited this bill from being saved:</h2>
+
+      <ul>
+      <% bill.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :customer_id %>
+    <%= form.text_field :customer_id, id: :bill_customer_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :cart_id %>
+    <%= form.text_field :cart_id, id: :bill_cart_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :total %>
+    <%= form.text_field :total, id: :bill_total %>
+  </div>
+
+  <div class="field">
+    <%= form.label :payment_type %>
+    <%= form.number_field :payment_type, id: :bill_payment_type %>
+  </div>
+
+  <div class="field">
+    <%= form.label :recieve %>
+    <%= form.text_field :recieve, id: :bill_recieve %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

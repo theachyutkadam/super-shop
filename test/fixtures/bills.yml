@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  customer: one
+  cart: one
+  total: 1.5
+  payment_type: 1
+  recieve: 1.5
+
+two:
+  customer: two
+  cart: two
+  total: 1.5
+  payment_type: 1
+  recieve: 1.5
