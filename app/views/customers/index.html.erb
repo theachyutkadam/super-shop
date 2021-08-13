@@ -1,5 +1,12 @@
 <p id="notice"><%= notice %></p>
 
+<%= form_tag customers_path, :method => 'get' do %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", :name => nil %>
+  </p>
+<% end %>
+
 <h5>Customers
   <%= link_to "Add Customer", new_customer_path, class: "float-right btn btn-primary"%>
 </h5>
@@ -22,18 +29,18 @@
       <% @customers.each do |customer| %>
         <tr>
           <td><%= customer.id %></td>
-          <td><%= "#{customer.last_name} #{customer.first_name}" %></td>
+          <td><%= link_to "#{customer.last_name.capitalize} #{customer.first_name.capitalize}", customer %></td>
           <td><%= customer.contact %></td>
           <td><%= customer.birthdate %></td>
           <td><%= customer.gender %></td>
           <td><%= customer.address %></td>
-          <td><%= link_to 'Show', customer, class: "btn btn-outline-info" %></td>
+          <td><%= link_to 'Cart', carts_path, class: "btn btn-outline-info" %></td>
           <td><%= link_to 'Edit', edit_customer_path(customer), class: "btn btn-outline-warning" %></td>
           <td>
             <%if customer.is_delete%>
-              <%= link_to 'Destroy', soft_delete_customer_path(customer.id), method: :put, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger", remote: true, disabled: true %>
+              <%= link_to 'Enable', soft_delete_customer_path(customer.id), method: :put, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-success", remote: true, disabled: true %>
             <%else%>
-              <%= link_to 'Destroy', soft_delete_customer_path(customer.id), method: :put, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger" %>
+              <%= link_to 'Disable', soft_delete_customer_path(customer.id), method: :put, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger" %>
             <%end%>
               
           </td>
