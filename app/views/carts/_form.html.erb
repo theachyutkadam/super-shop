@@ -13,13 +13,10 @@
 
   <div class="field">
     <%= form.label :product_id %>
-    <%= form.text_field :product_id, id: :cart_product_id %>
+    <%= form.select :product_id, options_for_select(Product.all.collect{|key| [key.name, key.id]}), id: :cart_product_id %>
   </div>
 
-  <div class="field">
-    <%= form.label :customer_id %>
-    <%= form.text_field :customer_id, id: :cart_customer_id %>
-  </div>
+  <%= form.hidden_field :customer_id, value: @customer%>
 
   <div class="field">
     <%= form.label :price %>

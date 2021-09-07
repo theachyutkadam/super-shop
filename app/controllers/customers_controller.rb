@@ -4,6 +4,10 @@ class CustomersController < ApplicationController
   # GET /customers
   # GET /customers.json
   def index
+    # url = "http://localhost:1025/customers/"
+    # token = "MKD0zTCaTyxD4uWAVNGBi9H9y2K+TsWt/jhTbu4tPgO3S/c6eg0="
+    # response = RestClient.get(url, {'X-AUTH-TOKEN' => token})
+    # @customers = response
     @customers = Customer.search(params).order(:last_name).paginate(page: params[:page], per_page: 5)
   end
 

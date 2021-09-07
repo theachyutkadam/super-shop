@@ -14,6 +14,7 @@ class CartsController < ApplicationController
 
   # GET /carts/new
   def new
+    @customer = params[:id]
     @cart = Cart.new
   end
 

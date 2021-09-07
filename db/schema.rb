@@ -10,10 +10,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210813044814) do
+ActiveRecord::Schema.define(version: 20210813080943) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bills", force: :cascade do |t|
+    t.bigint "customer_id"
+    t.bigint "cart_id"
+    t.float "total"
+    t.integer "payment_type"
+    t.float "recieve"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cart_id"], name: "index_bills_on_cart_id"
+    t.index ["customer_id"], name: "index_bills_on_customer_id"
+  end
+
+  create_table "carts", force: :cascade do |t|
+    t.bigint "product_id"
+    t.bigint "customer_id"
+    t.float "price"
+    t.float "unit"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_carts_on_customer_id"
+    t.index ["product_id"], name: "index_carts_on_product_id"
+  end
 
   create_table "customers", force: :cascade do |t|
     t.string "first_name"
@@ -49,4 +72,8 @@ ActiveRecord::Schema.define(version: 20210813044814) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "bills", "carts"
+  add_foreign_key "bills", "customers"
+  add_foreign_key "carts", "customers"
+  add_foreign_key "carts", "products"
 end
