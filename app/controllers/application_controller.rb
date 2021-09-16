@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   def authentication_user
     if session[:user_id]
       @current_user = User.find(session[:user_id])
+      # redirect_to root_path
     else
       redirect_to new_session_path
     end
