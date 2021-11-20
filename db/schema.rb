@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20210813080943) do
+ActiveRecord::Schema.define(version: 20211120105057) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,6 +51,16 @@ ActiveRecord::Schema.define(version: 20210813080943) do
     t.boolean "is_delete", default: false
   end
 
+  create_table "inventories", force: :cascade do |t|
+    t.bigint "product_id"
+    t.integer "measure"
+    t.integer "quntity"
+    t.float "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_inventories_on_product_id"
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.integer "measure"
@@ -76,4 +86,5 @@ ActiveRecord::Schema.define(version: 20210813080943) do
   add_foreign_key "bills", "customers"
   add_foreign_key "carts", "customers"
   add_foreign_key "carts", "products"
+  add_foreign_key "inventories", "products"
 end
