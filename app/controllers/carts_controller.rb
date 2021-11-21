@@ -16,6 +16,8 @@ class CartsController < ApplicationController
   def new
     @customer = params[:id]
     @cart = Cart.new
+    @products = Product.all
+    # @products = Product.search(params).paginate(page: params[:page], per_page: 10)
   end
 
   # GET /carts/1/edit

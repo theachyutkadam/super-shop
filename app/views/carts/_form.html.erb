@@ -1,34 +1,56 @@
-<%= form_with(model: cart, local: true) do |form| %>
-  <% if cart.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(cart.errors.count, "error") %> prohibited this cart from being saved:</h2>
+<%#= form_tag new_cart_path, :method => 'get' do %>
+  <%# <p> %>
+    <%#= text_field_tag :search, params[:search] %>
+    <%#= submit_tag "Search", :name => nil %>
+  <%# </p> %>
+<%# end %>
 
-      <ul>
-      <% cart.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+<p align="right">
+  <%= link_to 'Purchase', "", onclick: "generateBil()", class: "btn btn-outline-primary" %>
+</p>
+<table class="table table-striped table-hover table-condensed">
+  <thead>
+    <tr>
+      <th>Category</th>
+      <th>Name</th>
+      <th>Rate(in Rs)</th>
+      <th>Discount</th>
+      <th>Quntity</th>
+      <th colspan="3">Select</th>
+    </tr>
+  </thead>
 
-  <div class="field">
-    <%= form.label :product_id %>
-    <%= form.select :product_id, options_for_select(Product.all.collect{|key| [key.name, key.id]}), id: :cart_product_id %>
-  </div>
+  <tbody class= "table-sm">
+    <% @products.each do |product| %>
+      <tr>
+        <td><%= Product.categories.key(product.category).capitalize %></td>
+        <td><%= product.name.capitalize %></td>
+        <td><%= product.rate %> /<%=Product.measures.key(product.measure).capitalize%></td>
+        <td><%= product.discount %>%</td>
+        <td><%= number_field_tag 'quantity', nil, min: 1, id: "quntity_#{product.id}", placeholder: "Enter Quntity"%></td>
+        <td><%= product.remain_quntiry %></td>
+        <td><%= check_box_tag "product_ids", "#{product.id}", false, style: "zoom:2;", class: "product_list" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
-  <%= form.hidden_field :customer_id, value: @customer%>
+<%#= will_paginate @products %><br>
 
-  <div class="field">
-    <%= form.label :price %>
-    <%= form.text_field :price, id: :cart_price %>
-  </div>
+<style type="text/css">
+  td {
+    vertical-align: middle!important;
+  }
+</style>
 
-  <div class="field">
-    <%= form.label :unit %>
-    <%= form.text_field :unit, id: :cart_unit %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+<script type="text/javascript">
+  function generateBil() {
+    var prodcuts_ids = [];
+    var quntity = [];
+    $("input:checked").each(function(){
+      prodcuts_ids.push($(this).val();)
+      quntity.push(document.getElementById(("quntity_").concat(test)).value)
+    });
+    alert("product_ids ="+ prodcuts_ids + " Quntity ="+ quntity);
+  }
+</script>
